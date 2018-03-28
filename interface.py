@@ -9,6 +9,10 @@ while True:
 	curRoomObj = __import__(curRoom)
 	variables = curRoomObj.configure(variables)
 	print(curRoomObj.statement, end='\n\n')
+	if curRoomObj.jumpable:
+		print("You can jump from this place.\n")
+	else:
+		print("\nYou can not jump from this place.\n")
 	while input("Do you want to do something?(D) Or, do you want to go some where?(G) ").lower() == "d":
 		print("\nWhat will you do?\nYou can do the following activities:\n")
 		for i in curRoomObj.actions:
