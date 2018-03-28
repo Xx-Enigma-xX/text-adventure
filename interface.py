@@ -3,7 +3,7 @@ sys.path.insert(0, 'places')
 
 curRoom = 'home'
 
-variables = {}
+variables = {'hunger': 0}
 
 while True:
 	curRoomObj = __import__(curRoom)
@@ -26,4 +26,16 @@ while True:
 		print(i)
 	print()
 	choice = input("Enter your choice: ")
-	curRoom = choice
+	if curRoomObj.jumpable:
+		print("\nYou perform a time-space jump.\n")
+		curRoom = choice
+	else:
+		if choice in [i[0] for i in curRoomObj.neighbors if not i[0] == None]:
+			curRoom = choice
+		else:
+			print("\nYou can't go there! You are now going back to your previous room.\n")
+
+	variables['hunger'] -= 3
+	if variables['hunger'] > 100:
+		print("You die from hunger... :(")
+		break
