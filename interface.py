@@ -3,10 +3,10 @@ sys.path.insert(0, 'places')
 
 curRoom = 'home'
 
-variables = {'hunger': 0}
+variables = {'hunger': 0, 'curRoom': curRoom}
 
 while True:
-	curRoomObj = __import__(curRoom)
+	curRoomObj = __import__(variables['curRoom'])
 	variables = curRoomObj.configure(variables)
 	print(curRoomObj.statement, end='\n\n')
 	if curRoomObj.jumpable:
@@ -32,10 +32,10 @@ while True:
 	choice = input("Enter your choice: ")
 	if curRoomObj.jumpable:
 		print("\nYou perform a time-space jump.\n")
-		curRoom = choice
+		variables['curRoom'] = choice
 	else:
 		if choice in [i[0] for i in curRoomObj.neighbors if not i[0] == None]:
-			curRoom = choice
+			variables['curRoom'] = choice
 		else:
 			print("\nYou can't go there! You are now going back to your previous room.\n")
 
